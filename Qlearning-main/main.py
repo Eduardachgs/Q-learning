@@ -19,9 +19,14 @@ curr_reward = -14
 actions = ["left", "right", "jump"]
 
 # taxa de aprendizado, fator de desconto e taxa de exploracao
-alpha = 0.7
-gamma = 0.9
-epsilon = 0.01
+alpha = 0.01
+gamma = 0.05
+epsilon = 0
+
+# Histórico de estados e penalidade para loops
+# visited_states = []
+# loop_penalty = -3.0
+# loop_threshold = 5 
 
 while True:
     # escolhe uma ação
@@ -32,6 +37,16 @@ while True:
     state, reward = cn.get_state_reward(socket, actions[action])
     state = int(state[2:], 2)
     next_state = state
+
+    # Verifica se o estado foi visitado recentemente para penalizar loops
+    # if curr_state in visited_states:
+    #     print(f'Loop detectado no estado {curr_state}. Aplicando penalidade.')
+    #     reward += loop_penalty
+
+    # # Adiciona o estado atual ao histórico de estados visitados
+    # visited_states.append(curr_state)
+    # if len(visited_states) > loop_threshold:
+    #     visited_states.pop(0)
 
     print(f'Valor anterior desta acao: {matrix_utility[curr_state][action]}')
     # atualiza a matriz de utilidade
